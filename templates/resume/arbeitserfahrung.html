@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'resume/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Bootstrap background color */
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .separator {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<p>You may here enter your work experiences </p>
+<div class="container">
+    <form method="post" action="{% url 'arbeitserfahrung' %}">
+        {% csrf_token %}
+        <div class="separator" style="display: flex; justify-content: space-between;">
+            <h2 style="margin: 0; font-weight: bold;">Arbeitserfahrung</h2>
+            <a href="{% url 'user-profile' %}" style="margin: 0;">Back to profile</a>
+        </div>
+
+        {% if work_experience.errors %}
+        <div class="alert alert-danger">
+            {{ work_experience.errors }}
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.start_date.id_for_label }}" style="width: 100%;">Start date:</label>
+                    {{ arbeit_erfahrung.start_date}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.city.id_for_label }}" style="width: 100%;">City:</label>
+                    {{ arbeit_erfahrung.city}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.company.id_for_label }}" style="width: 100%;">Company:</label>
+                    {{ arbeit_erfahrung.company}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.status.id_for_label }}" style="width: 100%;">Status:</label>
+                    {{ arbeit_erfahrung.status}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.finish_date.id_for_label}}" style="width: 100%;">Finish date:</label>
+                    {{ arbeit_erfahrung.finish_date }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.country.id_for_label}}" style="width: 100%;">Country:</label>
+                    {{ arbeit_erfahrung.country }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ arbeit_erfahrung.last_position.id_for_label}}" style="width: 100%;">Last Position:</label>
+                    {{ arbeit_erfahrung.last_position }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="{{ arbeit_erfahrung.description.id_for_label }}" style="width: 100%;">Description:</label> <br>
+                    {{ arbeit_erfahrung.description}}
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="submit"  class="btn btn-primary">
+    </form>
+    <br><br>
+    <br><br><br>
+    <div style="display: flex; justify-content: space-between;">
+        <h2 style="margin: 0;">Arbeitserfahrungen List</h2>
+        <a href="{% url 'user-profile' %}" style="margin: 0;">Back to profile</a>
+    </div>
+    <hr style="margin-top: 5px; margin-bottom: 5px;">
+    <ul style="padding-left: 0;">
+        {% for ae in arbeit_erfahrungen %}
+        <li style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+                {{ ae.company }} - {{ ae.start_date }} to {{ ae.finish_date }}
+            </div>
+            <form action="{% url 'arbeitserfahrung-delete' ae.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <br><br><br><br>
+</div>
+</body>
+</html>

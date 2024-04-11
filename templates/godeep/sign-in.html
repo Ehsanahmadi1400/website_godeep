@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Sign in and sign up Page {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'resume/css/sign-in-styles.css' %}">
+    <div class="lower-page">
+        <div id="formsContainer" class="loggedIn">
+            <form method="POST" action="{% url 'sign-in' %}">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Login</button>
+            </form>
+            <br><br>
+        </div>
+    </div>
+        <div class="signup-guide">
+            <a href="{% url 'sign-up' %}">
+            <p>
+            Do you want to join us? click here
+            </p>
+            </a>
+        </div>
+    <div class="profile">
+        <h2>Welcome, <span id="loggedInUsername"></span>!</h2>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <script>
+        function signup() {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            // Perform signup logic (e.g., send data to server for registration)
+            console.log('Signup:', username, password);
+            toggleForms();
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            // Perform login logic (e.g., send data to server for authentication)
+            console.log('Login:', username, password);
+            document.getElementById('loggedInUsername').textContent = username;
+            toggleForms(true);
+        }
+
+        function logout() {
+            toggleForms(false);
+        }
+
+        function toggleForms(loggedIn = false) {
+            const formsContainer = document.getElementById('formsContainer');
+            if (loggedIn) {
+                formsContainer.classList.add('loggedIn');
+            } else {
+                formsContainer.classList.remove('loggedIn');
+            }
+        }
+    </script>
+{% endblock %}

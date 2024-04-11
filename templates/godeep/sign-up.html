@@ -1,0 +1,109 @@
+{% extends 'base-form.html' %}
+{% block title %} Personal information {% endblock %}
+
+{% block content%}
+{% include 'base.html' %}
+<div class="container">
+    <form method="post" action="{% url 'sign-up' %}">
+        {% csrf_token %}
+
+        <!-- Personal Information Section -->
+        <div class="separator">
+            <button type="button" class="btn btn-link toggle-btn" onclick="">Personal info</button>
+        </div>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username:</label>
+                    {{ form.username}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+                    {{ form.first_name}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label}}">Last Name:</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{form.date_of_birth.id_for_label}}">Date of Birth (yyyy-mm-dd):</label>
+                    {{form.date_of_birth}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="{{form.marital_status.id_for_label}}">Marital Status:</label>
+                    {{form.marital_status}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{form.email.id_for_label}}">Email Address:</label>
+                    {{form.email}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{form.phone_number.id_for_label}}">Phone number:</label>
+                    {{form.phone_number}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{form.password1.id_for_label}}">enter password:</label>
+                    {{form.password1}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{form.password2.id_for_label}}">re-enter password:</label>
+                    {{form.password2}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-md-12">
+                <div class="form-group">
+                    <label for="{{form.home_address.id_for_label}}">Description:</label>
+                    {{form.home_address}}
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="next"  class="btn btn-primary">
+        <br><br>
+      <!-- Display Errors -->
+      {% if form_submitted and form.errors %}
+        <div class="alert alert-danger">
+          <strong>Error:</strong> Please correct the following issues.
+        </div>
+        {% for field, errors in form.errors.items %}
+          <div class="alert alert-danger">
+            <strong>{{ field }}:</strong>
+            {% for error in errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </form>
+</div>
+{% endblock %}

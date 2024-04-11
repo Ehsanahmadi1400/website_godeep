@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'resume/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Bootstrap background color */
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .separator {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<p>You may here enter your education data </p>
+<div class="container">
+    <form method="post" action="{% url 'ausbildung' %}">
+        {% csrf_token %}
+        <div class="separator" style="display: flex; justify-content: space-between;">
+            <h3 style="margin: 0; font-weight: bold;">Ausbildung</h3>
+            <a href="{% url 'user-profile' %}" style="margin: 0;">Back to profile</a>
+        </div>
+
+        {% if education.errors %}
+        <div class="alert alert-danger">
+            {{ education.errors }}
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ ausbildung.start_date.id_for_label }}" style="width: 100%;">Start date:</label>
+                    {{ ausbildung.start_date}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.degree.id_for_label }}" style="width: 100%;">Degree:</label>
+                    {{ ausbildung.degree}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.institute.id_for_label }}" style="width: 100%;">Institute:</label>
+                    {{ ausbildung.institute}}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.status.id_for_label }}" style="width: 100%;">Status:</label>
+                    {{ ausbildung.status}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ ausbildung.finish_date.id_for_label}}" style="width: 100%;">Finish date:</label>
+                    {{ ausbildung.finish_date }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.city.id_for_label}}" style="width: 100%;">City:</label>
+                    {{ ausbildung.city }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.country.id_for_label}}" style="width: 100%;">Country:</label>
+                    {{ ausbildung.country }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ ausbildung.average.id_for_label}}" style="width: 100%;">Average:</label>
+                    {{ ausbildung.average }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="{{ ausbildung.description.id_for_label }}" style="width: 100%;">Description:</label> <br>
+                    {{ ausbildung.description}}
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="submit"  class="btn btn-primary">
+    </form>
+    <br><br><br>
+    <div style="display: flex; justify-content: space-between;">
+        <h3 style="margin: 0;">Ausbildung List</h3>
+        <a href="{% url 'user-profile' %}" style="margin: 0;">Back to profile</a>
+    </div>
+    <hr style="margin-top: 5px; margin-bottom: 5px;">
+    <ul style="padding-left: 0;">
+        {% for edu in ausbildungen %}
+        <li style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+                {{ edu.degree }} - {{ edu.start_date }} to {{ edu.finish_date }}
+            </div>
+            <form action="{% url 'ausbildung-delete' edu.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <br><br><br><br>
+</div>
+</body>
+</html>

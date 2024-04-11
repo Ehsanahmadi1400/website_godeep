@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'resume/css/profile-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'resume/css/show-resume-styles.css' %}">
+
+</head>
+<body>
+        <div class="cv-container">
+        <div class="left-column">
+            {% if person.images.first.profile_image %}
+                <img class="img1" src="{{ person.images.first.profile_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 200px;"><br>
+            {% else %}
+                    <img class="img1" src="{% static 'resume/images/default_image.jpg' %}" alt="empty"
+                     style="width: 200px; height: 200px;">
+            {% endif %}
+            <h1>{{person.profile.first_name_resume|upper}} {{person.profile.last_name_resume|upper}}</h1>
+            <h1>{{person.profile.user_title|upper}}</h1><br>
+            <h3>INFO:</h3>
+            <ul class="ul-type-1">
+                <li>Date of Birth: {{person.profile.date_of_birth}}</li>
+                <li>Marital Status: {{person.profile.get_marital_status_display}} </li>
+            </ul>
+            <ul class="ul-type-1">
+                <li>E-MAIL: {{person.email}}</li>
+                <li>PHONE: {{person.profile.phone_number}}</li>
+                <li>ADDRESS: {{person.profile.home_address}}</li>
+            </ul><br>
+            <h3>QUALITIES:</h3>
+            <ul class="ul-type-1">
+                {% for quality in person.competences.all %}
+                <li>{{quality.title}}</li>
+                {% endfor %}
+            </ul><br>
+            <h3>HOBBIES:</h3>
+                <ul class="ul-type-1">
+                    {% for hobby in person.hobbies.all %}
+                    <li>{{hobby.title}}</li>
+                    {% endfor %}
+                </ul><br><br>
+            {% if person.images.first.signature_image %}
+                <img class="img2" src="{{ person.images.first.signature_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 100px;">
+            {% else %}
+                    <img class="img2" src="{% static 'resume/images/default_signature.jpg' %}" alt="empty"
+                     style="width: 200px; height: 100px;">
+            {% endif %}
+
+        </div>
+        <div class="right-column">
+            {% if person.work_experiences.all %}
+            <h1>WORK EXPERIENCE</h1>
+            {% with work_experiences=person.work_experiences.all|dictsortreversed:'start_date'%}
+                {% for  work_experience in work_experiences %}
+                    <h2>{{work_experience.last_position}}|{{ work_experience.company|upper}}</h2>
+                    <p>From:{{work_experience.start_date}}   TO:{{work_experience.finish_date}}
+                    - {{ work_experience.city}}|{{work_experience.country}}</p><br>
+                    <p>{{ work_experience.description}}</p><br>
+            {% endfor %}
+            {% endwith %}
+            {% endif %}
+
+            {% if person.educations.all %}
+            <h1>EDUCATION</h1>
+                {% for edu in person.educations.all%}
+                    <h2>{{edu.degree}}|{{edu.institute}}</h2>
+                    <p>{{edu.finish_date}}</p><br>
+                {% endfor %}
+            {% endif %}
+
+            {% if person.skills.all %}
+            <h1>SKILLS</h1>
+                {% for sk in person.skills.all%}
+                    <h2>{{sk.title}}|{{sk.level_of_skill}}</h2>
+                    <p>{{sk.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.languages.all %}
+            <h1>LANGUAGES</h1>
+                {% for lang in person.languages.all%}
+                    <h2>{{lang.title}}|{{lang.level_of_language}}</h2>
+                    <p>{{lang.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.projects.all %}
+            <h1>PROJECTS</h1>
+                {% for pro in person.projects.all%}
+                    <h2>{{pro.title}} </h2>
+                    <p>{{pro.description}}</p>
+                {% endfor %}
+            {% endif %}
+            {% if person.courses.all %}
+            <h1>COURSES</h1>
+                    {% for cou in person.courses.all%}
+                    <h2>{{cou.title}} </h2>
+                    <p>{{cou.description}}</p>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div><br>
+    <script>
+        // Automatically initiate download when the page loads
+        window.onload = function() {
+            fetch('{% url 'print-pdf' person.pk %}')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'resume.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>

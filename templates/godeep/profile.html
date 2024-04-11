@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} User Profile {% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'resume/css/profile-styles.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li><a href="#" id="info-link">Personal information</a></li>
+        <li><a href="#" id="cv-link">English CV</a></li>
+        <li><a href="#" id="german-link">German CV</a></li>
+        <li><a href="#" id="settings-link">Edit Data</a></li>
+        <li><a href="{% url 'sign-out' %}" id="#">sign out</a></li>
+
+      </ul>
+    </div>
+    <div class="content">
+      <div id="info-content" class="profile-content">
+        <!-- Content for Personal Information -->
+        <h2>Personal Information</h2>
+        <p>
+		User's personal information goes here.
+		</p>
+      </div>
+      <div id="cv-content" class="profile-content">
+        <!-- Content for CV -->
+        <h2>Curriculum Vitae</h2>
+        <p>Your CV details go here.</p>
+        <link rel="stylesheet" href="{% static 'resume/css/show-resume-styles.css' %}">
+        <div class="top-navbar">
+            <div class="button-container">
+            <a class="button save" href="{% url 'print-pdf' person.pk %}">PDF</a>
+            <button class="button share">Share</button>
+        </div>
+    </div>
+        <div class="cv-container">
+        <div class="left-column">
+            {% if person.images.first.profile_image %}
+                <img class="img1" src="{{ person.images.first.profile_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 200px;"><br>
+            {% else %}
+                    <img class="img1" src="{% static 'resume/images/default_image.jpg' %}" alt="empty"
+                     style="width: 200px; height: 200px;">
+            {% endif %}
+            <h1>{{person.profile.first_name_resume|upper}} {{person.profile.last_name_resume|upper}}</h1>
+            <h1>{{person.profile.user_title|upper}}</h1><br>
+            <h3>INFO:</h3>
+            <ul class="ul-type-1">
+                <li>Date of Birth: {{person.profile.date_of_birth}}</li>
+                <li>Marital Status: {{person.profile.get_marital_status_display}} </li>
+            </ul>
+            <ul class="ul-type-1">
+                <li>E-MAIL: {{person.email}}</li>
+                <li>PHONE: {{person.profile.phone_number}}</li>
+                <li>ADDRESS: {{person.profile.home_address}}</li>
+            </ul><br>
+            <h3>QUALITIES:</h3>
+            <ul class="ul-type-1">
+                {% for quality in person.competences.all %}
+                <li>{{quality.title}}</li>
+                {% endfor %}
+            </ul><br>
+            <h3>HOBBIES:</h3>
+                <ul class="ul-type-1">
+                    {% for hobby in person.hobbies.all %}
+                    <li>{{hobby.title}}</li>
+                    {% endfor %}
+                </ul><br><br>
+            {% if person.images.first.signature_image %}
+                <img class="img2" src="{{ person.images.first.signature_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 100px;">
+            {% else %}
+                    <img class="img2" src="{% static 'resume/images/default_signature.jpg' %}" alt="empty"
+                     style="width: 200px; height: 100px;">
+            {% endif %}
+
+        </div>
+        <div class="right-column">
+            {% if person.work_experiences.all %}
+            <h1>WORK EXPERIENCE</h1>
+            {% with work_experiences=person.work_experiences.all|dictsortreversed:'start_date'%}
+                {% for  work_experience in work_experiences %}
+                    <h2>{{work_experience.last_position}}|{{ work_experience.company|upper}}</h2>
+                    <p>From:{{work_experience.start_date}}   TO:{{work_experience.finish_date}}
+                    - {{ work_experience.city}}|{{work_experience.country}}</p><br>
+                    <p>{{ work_experience.description}}</p><br>
+            {% endfor %}
+            {% endwith %}
+            {% endif %}
+
+            {% if person.educations.all %}
+            <h1>EDUCATION</h1>
+                {% for edu in person.educations.all%}
+                    <h2>{{edu.degree}}|{{edu.institute}}</h2>
+                    <p>{{edu.finish_date}}</p><br>
+                {% endfor %}
+            {% endif %}
+
+            {% if person.skills.all %}
+            <h1>SKILLS</h1>
+                {% for sk in person.skills.all%}
+                    <h2>{{sk.title}}|{{sk.level_of_skill}}</h2>
+                    <p>{{sk.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.languages.all %}
+            <h1>LANGUAGES</h1>
+                {% for lang in person.languages.all%}
+                    <h2>{{lang.title}}|{{lang.level_of_language}}</h2>
+                    <p>{{lang.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.projects.all %}
+            <h1>PROJECTS</h1>
+                {% for pro in person.projects.all%}
+                    <h2>{{pro.title}} </h2>
+                    <p>{{pro.description}}</p>
+                {% endfor %}
+            {% endif %}
+            {% if person.courses.all %}
+            <h1>COURSES</h1>
+                    {% for cou in person.courses.all%}
+                    <h2>{{cou.title}} </h2>
+                    <p>{{cou.description}}</p>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div><br>
+      </div>
+      <div id="german-content" class="profile-content">
+        <!-- Content for Charge -->
+        <h2>German CV</h2>
+        <p>Ihr Lebenslauf.</p>
+        <link rel="stylesheet" href="{% static 'resume/css/show-resume-german-styles.css' %}">
+        <div class="top-navbar">
+            <div class="button-container">
+            <a href="{% url 'print-pdf-de' person.pk %}" class="button export">PDF</a>
+            <button class="button share">Share</button>
+        </div>
+        </div>
+        <div class="cv-container-german">
+        <div class="left-column-german">
+            {% if person.fotos.first.profile_image %}
+                <img class="img1" src="{{ person.fotos.first.profile_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 200px;"><br>
+            {% else %}
+                    <img class="img1" src="{% static 'resume/images/default_image.jpg' %}" alt="empty"
+                     style="width: 200px; height: 200px;">
+            {% endif %}
+            <h1>{{person.benutzer_profil.first_name_resume|upper}} {{person.benutzer_profil.last_name_resume|upper}}</h1>
+            <h1>{{person.benutzer_profil.user_title|upper}}</h1><br>
+            <h3>INFO:</h3>
+            <ul class="ul-type-1">
+                <li>Geburtsdatum: {{person.benutzer_profil.date_of_birth}}</li>
+                <li>Familienstand: {{person.benutzer_profil.get_marital_status_display}} </li>
+            </ul>
+            <ul class="ul-type-1">
+                <li>E-MAIL: {{person.email}}</li>
+                <li>HANDY: {{person.benutzer_profil.phone_number}}</li>
+                <li>ADDRESS: {{person.benutzer_profil.home_address}}</li>
+            </ul><br>
+            <h3>QUALITÄTEN:</h3>
+            <ul class="ul-type-1">
+                {% for quality in person.kompetenzen.all %}
+                <li>{{quality.title}}</li>
+                {% endfor %}
+            </ul><br>
+            <h3>HOBBYS:</h3>
+                <ul class="ul-type-1">
+                    {% for hobby in person.hobbys.all %}
+                    <li>{{hobby.title}}</li>
+                    {% endfor %}
+                </ul><br><br>
+            {% if person.fotos.first.signature_image %}
+                <img class="img2" src="{{ person.fotos.first.signature_image.url }}"
+                     alt="Your Photo"
+                     style="width: 200px; height: 100px;">
+            {% else %}
+                    <img class="img2" src="{% static 'resume/images/default_signature.jpg' %}" alt="empty"
+                     style="width: 200px; height: 100px;">
+            {% endif %}
+
+        </div>
+        <div class="right-column-german">
+            {% if person.arbeit_erfahrung.all %}
+            <h1>ARBEITSERFAHRUNG</h1>
+            {% with work_experiences=person.arbeit_erfahrung.all|dictsortreversed:'start_date'%}
+                {% for  work_experience in work_experiences %}
+                    <h2>{{work_experience.last_position}}|{{ work_experience.company|upper}}</h2>
+                    <p>From:{{work_experience.start_date}}   TO:{{work_experience.finish_date}}
+                    - {{ work_experience.city}}|{{work_experience.country}}</p><br>
+                    <p>{{ work_experience.description}}</p><br>
+                {% endfor %}
+            {% endwith %}
+            {% endif %}
+            {% if person.ausbildung.all %}
+            <h1>AUSBILDUNG</h1>
+                {% for edu in person.ausbildung.all%}
+                    <h2>{{edu.degree}}|{{edu.institute}}</h2>
+                    <p>{{edu.finish_date}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.fahigkeiten.all %}
+            <h1>FÄHIGKEITEN</h1>
+                {% for sk in person.fahigkeiten.all%}
+                    <h2>{{sk.title}}|{{sk.level_of_skill}}</h2>
+                    <p>{{sk.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.sprachen.all %}
+            <h1>SPRACHEN</h1>
+                {% for lang in person.sprachen.all%}
+                    <h2>{{lang.title}}|{{lang.level_of_language}}</h2>
+                    <p>{{edu.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+            {% if person.projekte.all %}
+            <h1>PROJEKTE</h1>
+                {% for pro in person.projekte.all%}
+                    <h2>{{pro.title}}</h2>
+                    <p>{{edu.description}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div><br>
+      </div>
+      <div id="settings-content" class="profile-content">
+          <h2>My Data</h2>
+          <p>You can control your data here</p>
+          <br>
+          <h4> English CV data </h4>
+          <ul>
+             <li> <a href="{% url 'info' %}"> Personal Info </a></li>
+             <li> <a href="{% url 'work-experience' %}"> Work Experiences </a></li>
+             <li> <a href="{% url 'education' %}"> Education </a></li>
+             <li> <a href="{% url 'skills' %}"> Skills </a></li>
+             <li> <a href="{% url 'languages' %}"> Languages </a></li>
+             <li> <a href="{% url 'projects' %}"> Projects </a></li>
+             <li> <a href="{% url 'courses' %}"> Courses </a></li>
+             <li> <a href="{% url 'images' %}"> Images </a></li>
+             <li> <a href="{% url 'qualities' %}"> Qualities </a></li>
+             <li> <a href="{% url 'hobbies' %}"> Hobbies </a></li>
+             <li> <a href="{% url 'social-media' %}"> Social Media </a></li>
+             <li> <a href="{% url 'change-password' %}"> Change Password </a></li>
+
+          </ul>
+          <br><br>
+
+          <h4> German CV data </h4>
+          <ul>
+             <li> <a href="{% url 'daten' %}"> Benutzer Daten </a></li>
+             <li> <a href="{% url 'arbeitserfahrung' %}"> Arbeitserfahrungen </a></li>
+             <li> <a href="{% url 'ausbildung' %}"> Ausbildung </a></li>
+             <li> <a href="{% url 'fahigkeiten' %}"> Fahigkeiten </a></li>
+             <li> <a href="{% url 'sprachen' %}"> Sprachen </a></li>
+             <li> <a href="{% url 'projekte' %}"> Projekte </a></li>
+             <li> <a href="{% url 'kurse' %}"> Kurse </a></li>
+             <li> <a href="{% url 'fotos' %}"> Fotos </a></li>
+             <li> <a href="{% url 'kompetenzen' %}"> Kompetenzen </a></li>
+             <li> <a href="{% url 'hobbys' %}"> Hobbys </a></li>
+             <li> <a href="{% url 'sozial-medien' %}"> Sozial Medien </a></li>
+
+          </ul>
+      </div>
+    </div>
+  </div>
+ <script src="{% static 'resume/js/profile-script.js' %}"></script>
+{% endblock %}
