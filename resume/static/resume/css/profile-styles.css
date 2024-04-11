@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+	height: 100vh;
+}
+
+.sidebar {
+    background-color: #265f6c;
+    font: #333;
+    padding: 20px;
+    width: 200px;
+	border-right: 2px solid #333; /* Add a white vertical line */
+
+}
+
+.sidebar ul {
+
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+	color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.profile-content {
+    display: none;
+}

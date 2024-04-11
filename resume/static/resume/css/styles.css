@@ -1,0 +1,94 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #103840;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Distribute items along the main axis */
+    align-items: center; /* Center items along the cross axis */
+}
+
+.left-header {
+
+}
+
+.right-header {
+    color: #fff;
+    text-align: right;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    padding: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.vip-menu {
+    font: red;
+}
+
+.active-menu {
+    font: white;
+}
+
+.inactive-menu {
+    color: gray;
+}
+
+main {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #336699;
+    min-height: 100vh;
+    background-color: #ffffff;
+
+}
+
+.image-container {
+    background-color: #ffcc00;
+    padding: 20px;
+    display: inline-block;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    /* Adjust the width and height according to your preferences */
+    width: 200px;
+    height: 200px;
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 2px;
+    /* Adjust the width and height according to your preferences */
+    width: 200px;
+    height: 70px;
+}
+
+.site-name {
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+}
