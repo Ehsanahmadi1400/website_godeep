@@ -5,16 +5,39 @@
 
 {% block extracss %}
     <link rel="stylesheet" href="{% static 'resume/css/profile-styles.css' %}">
+    <style>
+
+    header {
+
+        background-color: #20AA76;
+        color: #fff;
+        text-align: left;
+        padding: 10px;
+        display: flex; /* Use flexbox for layout */
+        justify-content: space-between; /* Distribute items along the main axis */
+        align-items: center; /* Center items along the cross axis */
+    }
+
+    .sidebar {
+    background-color: #429575;
+    font: #333;
+    padding: 20px;
+    width: 200px;
+	border-right: 2px solid #333; /* Add a white vertical line */
+
+    }
+
+    </style>
 {% endblock %}
 
 {% block content %}
   <div class="container">
     <div class="sidebar">
       <ul>
-        <li><a href="#" id="info-link">Personal information</a></li>
         <li><a href="#" id="cv-link">English CV</a></li>
         <li><a href="#" id="german-link">German CV</a></li>
         <li><a href="#" id="settings-link">Edit Data</a></li>
+        <li><a href="#" id="info-link">Buy me a Tee</a></li>
         <li><a href="{% url 'sign-out' %}" id="#">sign out</a></li>
 
       </ul>

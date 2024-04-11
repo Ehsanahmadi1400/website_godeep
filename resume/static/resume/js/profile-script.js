@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Show the default content
-    showContent('info-content');  // Change this line to set the default content to 'info-content'
+    showContent('cv-content');  // Change this line to set the default content to 'info-content'
 
     // Add click event listeners to each link
     document.getElementById('cv-link').addEventListener('click', function () {

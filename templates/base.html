@@ -6,7 +6,23 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'resume/css/styles.css' %}">
-    {% block extracss %}{% endblock %}
+    {% block extracss %}
+    <style>
+
+    header {
+
+        background-color: #20AA76;
+        color: #fff;
+        text-align: left;
+        padding: 10px;
+        display: flex; /* Use flexbox for layout */
+        justify-content: space-between; /* Distribute items along the main axis */
+        align-items: center; /* Center items along the cross axis */
+    }
+
+
+    </style>
+    {% endblock %}
 </head>
     <header>
         <div class="left-header">
