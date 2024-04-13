@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'resume.apps.ResumeConfig',
+    'donation.apps.DonationConfig',
 
 ]
 

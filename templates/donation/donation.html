@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+{% block title %} Donation page {% endblock%}
+
+
+{% block content %}
+    {% for donation in donations %}
+        <li> {{ donation.price }}</li>
+    {% endfor %}
+{% endblock %}

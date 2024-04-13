@@ -24,7 +24,8 @@ from resume.views import HomepageView, ProfileDetailView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('resume/', include('resume.urls')),
-    path('', HomepageView.as_view(), name='homepage'),
+    path('donation/', include('donation.urls')),
 
+    path('', HomepageView.as_view(), name='homepage'),
     path('accounts/profile/', ProfileDetailView.as_view(), name='user-profile')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
