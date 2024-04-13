@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %} payment verification {% endblock%}
+
+{% block content %}
+{% if is_paid %}
+<p> successfully paid </p>
+<p> thankyou for supporting us </p>
+<a href="{% url 'homepage' %}"> back </a>
+
+{% else %}
+<p> Error in payment </p>
+<p> maybe next time </p>
+<a href="{% url 'homepage' %}"> back </a>
+
+{% endif %}
+{% endblock %}

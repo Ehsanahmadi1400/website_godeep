@@ -174,7 +174,7 @@ body{
 {% block content %}
  <div class="wrapper">
      {% for donation in donations %}
-     <form method="post" action="#">
+     <form method="post">
          {% csrf_token %}
         <div class="pricing-table gprice-single">
             <div class="head">
@@ -196,7 +196,6 @@ body{
             </div>
         </div>
      </form>
-
-     {% endfor %}
-    </div>
+    {% endfor %}
+ </div>
 {% endblock %}
