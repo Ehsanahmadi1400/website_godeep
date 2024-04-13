@@ -35,7 +35,7 @@
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'user-profile' %}" class="active-menu">RESUME</a>
                 {% endif %}
-                <a href="#" class="active-menu">Buy me a Tee</a>
+                <a href="{% url 'donation' %}" class="active-menu">Buy me a Tee</a>
 <!--                <a href="#" class="inactive-menu">GAME</a>-->
 <!--                <a href="#" class="inactive-menu">BLOG</a>-->
 <!--                <a href="#" class="inactive-menu">SHOP</a>-->

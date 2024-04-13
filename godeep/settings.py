@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.humanize',
+
     'resume.apps.ResumeConfig',
     'donation.apps.DonationConfig',
 
@@ -128,3 +130,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ZARINPAL = {
+    'gateway_request_url': 'https://www.zarinpal.com/pg/services/WebGate/wsdl',
+    'gateway_callback_url': 'http://127.0.0.1:8000/donation/verify/',
+    'merchant_id': ZARINPAL_MERCHANT_ID
+}
