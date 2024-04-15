@@ -65,8 +65,8 @@ def section(c, headline, offset, content, color):
             c.drawString(200, 818 - offset - line_space, content[i][0].upper())
             c.setFont('Calibri', 12)
             c.drawString(200, 818 - offset - 13 - line_space, content[i][1])
-            c.drawString(200, 818 - offset - 13 - line_space, content[i][2])
-            line_space += 35
+            c.drawString(200, 818 - offset - 25 - line_space, content[i][2])
+            line_space += 50
 
         elif len(content[i]) == 2:
             c.setFont('Calibri-Bold', 14)
@@ -130,16 +130,16 @@ class PDFGeneratorEN(DetailView):
         # Retrieve work_experiences
         work_experiences_data = list()
         for exp in person.user.work_experiences.all():
-            work_experiences_data.append([f"{exp.last_position}| {exp.company}|{exp.get_status_display()}",
-                                          f"{exp.start_date}-{exp.finish_date}|{exp.city}-{exp.country}",
+            work_experiences_data.append([f"{exp.last_position}|{exp.company}|{exp.get_status_display()}",
+                                          f"{exp.start_date} to {exp.finish_date}|{exp.city}-{exp.country}",
                                           f"{exp.description}"
                                           ])
 
         # Retrieve educations
         education_data = list()
         for edu in person.user.educations.all():
-            education_data.append([f"{edu.degree}| {edu.institute}|{edu.get_status_display()}|{edu.average}",
-                                   f"{edu.start_date}-{edu.finish_date}|{edu.city}-{edu.country}",
+            education_data.append([f"{edu.degree}|{edu.institute}|{edu.get_status_display()}",
+                                   f"{edu.start_date} to {edu.finish_date}|{edu.city}-{edu.country}",
                                    f"{edu.description}"
                                    ])
 
@@ -156,7 +156,8 @@ class PDFGeneratorEN(DetailView):
         # Retrieve projects data
         projects_data = list()
         for pro in person.user.projects.all():
-            projects_data.append([f"{pro.title}|{pro.description}"])
+            projects_data.append([f"{pro.title}",
+                                  f"{pro.description}"])
 
         # Retrieve courses data
         courses_data = list()
@@ -184,8 +185,8 @@ class PDFGeneratorEN(DetailView):
         user_images = person.user.images.all()
 
         # Loop through each image object to access profile_image and signature_image
-        cropped_profile_image_path = "media/profile_images/default-avatar.png"
-        signature_image_path = "media/signature_images/default-signature.png"
+        cropped_profile_image_path = "media/profile_images/default_avatar.jpg"
+        signature_image_path = "media/signature_images/default_signature.jpg"
 
         for image in user_images:
             if image.profile_image:
@@ -373,8 +374,8 @@ class PDFGeneratorDE(DetailView):
         user_images = person.user.fotos.all()
 
         # Loop through each image object to access profile_image and signature_image
-        cropped_profile_image_path = "media/profile_images/default-avatar.png"
-        signature_image_path = "media/signature_images/default-signature.png"
+        cropped_profile_image_path = "media/profile_images/default_avatar.jpg"
+        signature_image_path = "media/signature_images/default_signature.jpg"
 
         for image in user_images:
             if image.profile_image:

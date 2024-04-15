@@ -40,7 +40,7 @@ class VerifyView(View):
         authority = request.GET.get('Authority')
         is_paid, ref_if = zpal_payment_checker(
             settings.ZARINPAL['merchant_id'],
-            Donation.price,
+            300000,  # needs change
             authority,
         )
 
