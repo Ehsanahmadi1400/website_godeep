@@ -154,7 +154,7 @@
             <h1>PROJECTS</h1>
                 {% for pro in person.projects.all%}
                     <h2>{{pro.title|upper}} </h2>
-                    <p>{{pro.description}}</p>
+                    <p>{{pro.description}}</p><br>
                 {% endfor %}
             {% endif %}
             {% if person.courses.all %}
@@ -236,7 +236,7 @@
             <h1>ARBEITSERFAHRUNG</h1>
             {% with work_experiences=person.arbeit_erfahrung.all|dictsortreversed:'start_date'%}
                 {% for  work_experience in work_experiences %}
-                    <h2>{{work_experience.last_position}}|{{ work_experience.company|upper}}</h2>
+                    <h2>{{work_experience.last_position|upper}}|{{ work_experience.company|upper}}</h2>
                     <p>From:{{work_experience.start_date}}   TO:{{work_experience.finish_date}}
                     - {{ work_experience.city}}|{{work_experience.country}}</p><br>
                     <p>{{ work_experience.description}}</p><br>
@@ -245,32 +245,43 @@
             {% endif %}
             {% if person.ausbildung.all %}
             <h1>AUSBILDUNG</h1>
-                {% for edu in person.ausbildung.all%}
-                    <h2>{{edu.degree}}|{{edu.institute}}</h2>
-                    <p>{{edu.finish_date}}</p><br>
+            {% with ausbildungen=person.ausbildung.all|dictsortreversed:'finish_date'%}
+                {% for edu in ausbildungen%}
+                    <h2>{{edu.degree|upper}}|{{edu.institute|upper}}</h2>
+                    <p>{{edu.finish_date}}</p>
+                    <p>{{edu.description}}</p><br>
                 {% endfor %}
+            {% endwith %}
             {% endif %}
             {% if person.fahigkeiten.all %}
             <h1>FÄHIGKEITEN</h1>
                 {% for sk in person.fahigkeiten.all%}
-                    <h2>{{sk.title}}|{{sk.level_of_skill}}</h2>
+                    <h2>{{sk.title|upper}}|{{sk.level_of_skill|upper}}</h2>
                     <p>{{sk.description}}</p><br>
                 {% endfor %}
             {% endif %}
             {% if person.sprachen.all %}
             <h1>SPRACHEN</h1>
                 {% for lang in person.sprachen.all%}
-                    <h2>{{lang.title}}|{{lang.level_of_language}}</h2>
-                    <p>{{edu.description}}</p><br>
+                    <h2>{{lang.title|upper}}|{{lang.level_of_language|upper}}|{{lang.certificate|upper}}</h2>
+                    <p>{{lang.description}}</p><br>
                 {% endfor %}
             {% endif %}
             {% if person.projekte.all %}
             <h1>PROJEKTE</h1>
                 {% for pro in person.projekte.all%}
-                    <h2>{{pro.title}}</h2>
-                    <p>{{edu.description}}</p>
+                    <h2>{{pro.title|upper}}</h2>
+                    <p>{{pro.description}}</p><br>
                 {% endfor %}
             {% endif %}
+            {% if person.kurse.all %}
+            <h1>KURSE</h1>
+                    {% for cou in person.kurse.all%}
+                    <h2>{{cou.title|upper}}|{{cou.period|upper}}|{{cou.certificate|upper}}</h2>
+                    <p>{{cou.description}}</p><br>
+                {% endfor %}
+            {% endif %}
+
         </div>
     </div><br>
       </div>
@@ -300,7 +311,7 @@
              <li> <a href="{% url 'daten' %}"> Benutzer Daten </a></li>
              <li> <a href="{% url 'arbeitserfahrung' %}"> Arbeitserfahrungen </a></li>
              <li> <a href="{% url 'ausbildung' %}"> Ausbildung </a></li>
-             <li> <a href="{% url 'fahigkeiten' %}"> Fahigkeiten </a></li>
+             <li> <a href="{% url 'fahigkeiten' %}"> Fähigkeiten </a></li>
              <li> <a href="{% url 'sprachen' %}"> Sprachen </a></li>
              <li> <a href="{% url 'projekte' %}"> Projekte </a></li>
              <li> <a href="{% url 'kurse' %}"> Kurse </a></li>
