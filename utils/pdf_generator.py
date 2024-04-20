@@ -203,7 +203,8 @@ class PDFGeneratorEN(DetailView):
 
         one_page_canvas.setFillColor(colors.white)
         one_page_canvas.setFont('Calibri-Bold', 18)
-        one_page_canvas.drawString(35, 650, f"{person.first_name_resume} {person.last_name_resume}")
+        title_text = f"{person.first_name_resume} {person.last_name_resume}".upper()
+        one_page_canvas.drawString(35, 650, title_text)
         one_page_canvas.drawString(35, 630, person.user_title)
 
         side_section(one_page_canvas, 'INFO:', 250, profile_data)
@@ -250,7 +251,7 @@ class PDFGeneratorEN(DetailView):
             return response
         else:
             print("new offset of one page is:", new_offset)
-            print('Offset is bigger than 800, then we do it in one page')
+            print('Offset is bigger than 800, then we do it in two pages')
 
             # Start of two_page resume design
             two_page_canvas.setFillColor(custom_color_EN)
@@ -259,8 +260,9 @@ class PDFGeneratorEN(DetailView):
 
             two_page_canvas.setFillColor(colors.white)
             two_page_canvas.setFont('Calibri-Bold', 18)
-            two_page_canvas.drawString(35, 650, f"{person.first_name_resume} {person.last_name_resume}")
-            two_page_canvas.drawString(35, 630, person.user_title)
+            text = f"{person.first_name_resume} {person.last_name_resume}".upper()
+            two_page_canvas.drawString(35, 650, text)
+            two_page_canvas.drawString(35, 630, person.user_title.upper())
 
             side_section(two_page_canvas, 'INFO:', 250, profile_data)
             side_section(two_page_canvas, 'COMPETENCES:', 450, competence_data)
@@ -392,8 +394,9 @@ class PDFGeneratorDE(DetailView):
 
         one_page_canvas.setFillColor(colors.white)
         one_page_canvas.setFont('Calibri-Bold', 18)
-        one_page_canvas.drawString(35, 650, f"{person.first_name_resume} {person.last_name_resume}")
-        one_page_canvas.drawString(35, 630, person.user_title)
+        text = f"{person.first_name_resume} {person.last_name_resume}".upper()
+        one_page_canvas.drawString(35, 650, text)
+        one_page_canvas.drawString(35, 630, person.user_title.upper())
 
         side_section(one_page_canvas, 'INFO:', 250, profile_data)
         side_section(one_page_canvas, 'KOMPETENZEN:', 450, competence_data)
@@ -439,7 +442,7 @@ class PDFGeneratorDE(DetailView):
             return response
         else:
             print("new offset of one page is:", new_offset)
-            print('Offset is bigger than 800, then we do it in one page')
+            print('Offset is bigger than 800, then we do it in two pages')
 
             # Start of two_page resume design
             two_page_canvas.setFillColor(custom_color_DE)
@@ -448,8 +451,9 @@ class PDFGeneratorDE(DetailView):
 
             two_page_canvas.setFillColor(colors.white)
             two_page_canvas.setFont('Calibri-Bold', 18)
-            two_page_canvas.drawString(35, 650, f"{person.first_name_resume} {person.last_name_resume}")
-            two_page_canvas.drawString(35, 630, person.user_title)
+            text = f"{person.first_name_resume} {person.last_name_resume}".upper()
+            two_page_canvas.drawString(35, 650, text)
+            two_page_canvas.drawString(35, 630, person.user_title.upper())
 
             side_section(two_page_canvas, 'INFO:', 250, profile_data)
             side_section(two_page_canvas, 'KOMPETENZEN:', 450, competence_data)
