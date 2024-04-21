@@ -203,8 +203,8 @@ class PDFGeneratorEN(DetailView):
 
         one_page_canvas.setFillColor(colors.white)
         one_page_canvas.setFont('Calibri-Bold', 18)
-        title_text = f"{person.first_name_resume} {person.last_name_resume}".upper()
-        one_page_canvas.drawString(35, 650, title_text)
+        text = f"{person.first_name_resume} {person.last_name_resume}".upper()
+        one_page_canvas.drawString(35, 650, text)
         one_page_canvas.drawString(35, 630, person.user_title)
 
         side_section(one_page_canvas, 'INFO:', 250, profile_data)

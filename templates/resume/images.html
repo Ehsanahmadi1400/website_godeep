@@ -67,7 +67,12 @@
         <input type="submit" value="submit"  class="btn btn-primary">
     </form>
     <br><br>
-    <p align="middle">upload both images in the same time, other than that you will face an error</p><br>
+    <p align="middle">
+        <li> Best profile image size: square ratio, >= 200*200 </li>
+        <li> Best signature imge size: rectangle ratio, >= 200*100 </li>
+        <li> Submit images simultaneously, to avoid errors </li>
+        <li> Just keep one item in images list </li>
+    </p><br>
     <div style="display: flex; justify-content: space-between;">
         <h3 style="margin: 0;">Images List</h3>
         <a href="{% url 'user-profile' %}" style="margin: 0;">Back to profile</a>
