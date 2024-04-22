@@ -4,20 +4,23 @@ from resume.views import (CustomSignInView, CustomSignUpView, CustomSignOutView,
                           WorkExperienceModifyView, EducationModifyView, EducationDeleteView, SkillModifyView,
                           LanguageModifyView, ProjectModifyView, CourseModifyView, CompetenceModifyView,
                           ImageModifyView, HobbyModifyView, SocialMediaModifyView, SkillDeleteView, LanguageDeleteView,
-                          ProjectDeleteView, CourseDeleteView, ImageDeleteView,  SocialMediaDeleteView,
+                          ProjectDeleteView, CourseDeleteView, ImageDeleteView, SocialMediaDeleteView,
                           CompetenceDeleteView, HobbyDeleteView, UserInfoModifyView, ChangePasswordView,
                           PrintPageView, ArbeitsErfahrungDeleteView, ArbeitsErfahrungModifyView, AusbildungModifyView,
                           FahigkeitenModifyView, SprachenModifyView, ProjekteModifyView, KurseModifyView,
                           AusbildungDeleteView, FahigkeitenDeleteView, SprachenDeleteView, ProjekteDeleteView,
                           KurseDeleteView, FotosModifyView, FotosDeleteView, KompetenzenModifyView,
                           KompetenzenDeleteView, HobbyDEDeleteView, HobbyDEModifyView, SozialMedienModifyView,
-                          SozialMedienDeleteView, BenutzerprofilModifyView, PrintPageDEView)
+                          SozialMedienDeleteView, BenutzerprofilModifyView, PrintPageDEView, ContactMeView)
 
 urlpatterns = [
     # login/ logout urls
     path('sign-in/', CustomSignInView.as_view(), name='sign-in'),
     path('sign-up/', CustomSignUpView.as_view(), name='sign-up'),
     path('sign-out/', CustomSignOutView.as_view(), name='sign-out'),
+
+    # Contact me
+    path('contact-m/', ContactMeView.as_view(), name='contact-me'),
 
     # English resume main URLs
     path('work-experience/', WorkExperienceModifyView.as_view(), name='work-experience'),

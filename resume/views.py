@@ -31,6 +31,10 @@ class HomepageView(TemplateView):
     template_name = 'godeep/homepage.html'
 
 
+class ContactMeView(TemplateView):
+    template_name = 'godeep/contact-me.html'
+
+
 class CustomSignInView(LoginView):
     template_name = 'godeep/sign-in.html'
     authentication_form = AuthenticationForm

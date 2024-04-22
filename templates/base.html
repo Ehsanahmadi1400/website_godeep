@@ -10,7 +10,7 @@
     <style>
 
     header {
-
+        font-size: 14px;
         background-color: #20AA76;
         color: #fff;
         text-align: left;
@@ -35,15 +35,16 @@
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'user-profile' %}" class="active-menu">RESUME</a>
                 {% endif %}
-                <a href="{% url 'donation' %}" class="active-menu">Buy me a Tee</a>
+                <a href="{% url 'donation' %}" class="active-menu">BUY A ME TEE </a>
 <!--                <a href="#" class="inactive-menu">GAME</a>-->
 <!--                <a href="#" class="inactive-menu">BLOG</a>-->
 <!--                <a href="#" class="inactive-menu">SHOP</a>-->
                 {% if request.user.is_authenticated %}
                     <a class="active-menu">Hi {{request.user.username}}</a>
                 {% else %}
-                    <a href="{% url 'sign-in' %}" class="active-menu">sign in</a>
+                    <a href="{% url 'sign-in' %}" class="active-menu">SIGN IN</a>
                 {% endif %}
+                <a href="{% url 'contact-me' %}" class="active-menu">CONTACT ME</a>
             </nav>
         </div>
     </header>
