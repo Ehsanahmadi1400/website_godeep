@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["godeep.ir", 'www.godeep.ir']
 
 
 # Application definition
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'godeep.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': DB_NAME,
         'USER': DB_USER,
         'HOST': DB_HOST,
